@@ -1,24 +1,3 @@
-# 依赖
-node_modules
-
-# 打包产物
-dist
-
-# Mac 系统垃圾文件
 .DS_Store
-
-# 日志
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# 环境变量
-.env
-.env.local
-.env.development.local
-.env.production.local
-
-# 编辑器配置（可选）
-.idea
-.vscode
+node_modules
+dist
