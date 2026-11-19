@@ -1,14 +1,26 @@
+from pathlib import Path
+
+from datetime import datetime, timezone
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pypinyin import lazy_pinyin, Style
 from snownlp import SnowNLP
+from storage import init_db, save_record, get_history
+
+init_db()  # 初始化数据库（如果不存在就创建）
+
+# 用绝对路径：不管在哪个目录启动，history.json 都固定在 main.py 旁边
+BASE_DIR = Path(__file__).resolve().parent
+
 
 app = FastAPI()
 
+# CORS：用正则放行本机任意端口，localhost 和 127.0.0.1 都可以（仅限本地开发）
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -51,10 +63,17 @@ def get_profile():
 def analyze(req: AnalyzeRequest):
     text = req.text
     score = round(SnowNLP(text).sentiments, 2)
-
-    return {
+    result = {
         "text": text,
         "score": score,
         "label": score_label(score),
         "pinyin": " ".join(lazy_pinyin(text, style=Style.TONE)),
+        "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
+    save_record(result)  # 存档到文件
+    return result
+
+
+@app.get("/api/history")
+def history():
+    return get_history(10)  # 读出文件里的全部记录，倒序返回最新的 10 条
