@@ -17,8 +17,7 @@ const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 export default function TextLabView() {
   const [result, setResult] = useState(null);
   const [history, setHistory] = useState([]);
-  const [historyOpen, setHistoryOpen] = useState(false);
-
+  c 
   async function openHistory() {
     setHistoryOpen(true);
     try {
