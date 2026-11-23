@@ -1,10 +1,3 @@
-// app/layout.jsx 是 Next.js 的"全站外壳"——所有页面都套在它里面。
-// 它取代了 4.4 的 index.html + main.jsx + App.jsx 最外面那层壳：
-//   - <html>/<body> 由它提供；
-//   - app-shell / page-shell / page-content 这层包裹，和 4.4 App.jsx 里一模一样；
-//   - 4.4 main.jsx 里那 8 行 import CSS，原样搬到这里（顺序不变）。
-// 注意：导航条 Nav 不在这儿，它在每一页的 hero 里（HomeView / TextLabView 各放一份），
-// 这样整页布局和 4.4 完全一致。
 
 import Script from "next/script";
 
@@ -25,28 +18,27 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="zh-CN">
+      <head>
+        {/* Google Tag Manager */}
+        <Script
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-T7Z77NNX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `}
+        </Script>
+      </head>
+
       <body>
         <div className="app-shell">
           <div className="page-shell">
             <main className="page-content">{children}</main>
           </div>
         </div>
-
-        {/* Google tag (gtag.js) —— 外部脚本 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-          strategy="afterInteractive"
-        />
-
-        {/* gtag 初始化 —— 内联脚本，必须有唯一 id */}
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX');
-          `}
-        </Script>
       </body>
     </html>
   );
