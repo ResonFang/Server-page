@@ -11,7 +11,7 @@ from snownlp import SnowNLP
 from storage import init_db, save_record, get_history
 import os
 from dotenv import load_dotenv
- 
+
 load_dotenv()  # ← 读同目录下的 .env
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
 
@@ -34,6 +34,7 @@ def get_session_id(request: Request, response: Response) -> str:
             sid,
             httponly=True,
             samesite="lax",
+            secure=True,  # 生产环境下才用 HTTPS 才能传 cookie
             max_age=60 * 60 * 24 * 30,  # 记 30 天
         )
     return sid
