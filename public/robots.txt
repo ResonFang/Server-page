@@ -1,0 +1,90 @@
+
+# ==========================================
+# AI Crawler Restrictions
+# Block AI crawlers from accessing /Api/
+# ==========================================
+
+# OpenAI
+User-agent: GPTBot
+Disallow: /Api/
+
+User-agent: ChatGPT-User
+Disallow: /Api/
+
+# Anthropic - Claude
+User-agent: ClaudeBot
+Disallow: /Api/
+
+User-agent: Claude-Web
+Disallow: /Api/
+
+User-agent: anthropic-ai
+Disallow: /Api/
+
+# Google - Gemini
+User-agent: Google-Extended
+Disallow: /Api/
+
+# Microsoft - Copilot / Bing AI
+User-agent: Bingbot
+Disallow: /Api/
+
+User-agent: MicrosoftPreview
+Disallow: /Api/
+
+# Meta AI
+User-agent: FacebookBot
+Disallow: /Api/
+
+User-agent: meta-externalagent
+Disallow: /Api/
+
+User-agent: meta-externalfetcher
+Disallow: /Api/
+
+# DeepSeek and ByteDance
+User-agent: Bytespider
+Disallow: /Api/
+
+# Perplexity AI
+User-agent: PerplexityBot
+Disallow: /Api/
+
+# Amazon AI
+User-agent: Amazonbot
+Disallow: /Api/
+
+# Apple AI
+User-agent: Applebot-Extended
+Disallow: /Api/
+
+# Common Crawl
+User-agent: CCBot
+Disallow: /Api/
+
+# Cohere
+User-agent: cohere-ai
+Disallow: /Api/
+
+# You.com
+User-agent: YouBot
+Disallow: /Api/
+
+# AI2
+User-agent: AI2Bot
+Disallow: /Api/
+
+# Mistral AI
+User-agent: MistralAI-User
+Disallow: /Api/
+
+# Huawei
+User-agent: PetalBot
+Disallow: /Api/
+
+# ==========================================
+# All other crawlers
+# ==========================================
+
+User-agent: *
+Disallow: /Api/
